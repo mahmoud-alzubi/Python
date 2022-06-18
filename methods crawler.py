@@ -25,7 +25,7 @@ urls = glob(folder_path + "/*.html")
 file_name = "methods - " + date_time
 with open("results/"+ file_name +'.csv', 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(["Class", "Methods"])
+   # writer.writerow(["Class", "Methods"])
 
     occurrence_dict = {}
     occurrence_loc_dict = {}
@@ -36,7 +36,7 @@ with open("results/"+ file_name +'.csv', 'w', newline='') as file:
             z = driver.find_elements(By.XPATH,"//section[@class='method-summary']//a[@class='member-name-link']")
            
             for x in z:
-                writer.writerow([class_title, x.text])
+              #  writer.writerow([class_title, x.text])
                 if(x.text not in occurrence_dict.keys()):
                     occurrence_dict.update({ x.text : 1 })
                     occurrence_loc_dict.update({ x.text : class_title })
@@ -54,14 +54,14 @@ with open("results/"+ file_name +'.csv', 'w', newline='') as file:
             print(class_title + "failed")
             pass
         
-        writer.writerow([])
+       # writer.writerow([])
         
-    writer.writerow(["Method", "# of occurrence"])
+    writer.writerow(["Method", "# of occurrence", "Location"])
     for x in occurrence_dict.keys():
-        writer.writerow([x, occurrence_dict.get(x)])
+        writer.writerow([x, occurrence_dict.get(x), occurrence_loc_dict.get(x)])
 
-    for k in occurrence_loc_dict.keys():
-        writer.writerow([k, occurrence_loc_dict.get(k)])
+  #  for k in occurrence_loc_dict.keys():
+   #     writer.writerow([k, occurrence_loc_dict.get(k)])
 
 driver.close()
     
